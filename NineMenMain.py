@@ -115,6 +115,9 @@ IndexError: list index out of range
 0002: Fix->Bug 1 might fix, but can set messages manually too
 
 
+CREDITS:
+I need to udpate my credits for artists from freesound, and the images
+
 """
 
 VERSION = 9
