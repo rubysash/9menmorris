@@ -45,6 +45,7 @@ BRIGHTBLUE   = (  0,   0, 255)
 BLUE         = (  0,   0, 155)
 BRIGHTYELLOW = (255, 255,   0)
 YELLOW       = (155, 155,   0)
+ORANGE       = (255, 127,   0)
 GRAY         = (210, 210, 210)
 
 # fixme:  standardize, make failback, cache
@@ -136,6 +137,17 @@ KILLS = [
 
 ]
 
+
+THEME = {
+1: ['1.png',BLACK,BLACK,'1.mp3'], 
+2: ['2.png',BLUE,BLUE,'2.mp3'],
+3: ['3.png',BLACK,BLACK,'3.mp3'],
+4: ['4.png',BLACK,BLACK,'4.mp3'],
+5: ['5.png',YELLOW,ORANGE,'5.mp3'],
+6: ['6.png',BLACK,BLACK,'6.mp3'],
+7: ['7.png',BLACK,BLACK,'7.mp3'],
+8: ['8.png',BLACK,BLACK,'8.mp3'],
+}
 
 """
 though something like this would make code prettier

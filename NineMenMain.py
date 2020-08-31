@@ -5,11 +5,11 @@ import sys
 import time
 import pygame.freetype
 import re
+import random
 
 from NineMenConfig import *
 from NineMenFunctions import *
 
-# import random
 # import numpy as np
 # import math
 
@@ -72,11 +72,15 @@ version .8:
     added license
 
 version .9
+    added sound and image to background
+
+
+version .91 working on..
     Must choose open string first in kill choices
     More Pep-8
     More optimization and refactor
-    change append to assign
-    render fonts in cahce
+    change append to assign to optimize code
+    render fonts in cache to optimize code
 
 
 MAKE PRETTY
@@ -115,6 +119,12 @@ IndexError: list index out of range
 
 VERSION = 8
 
+class PlaceImage(pygame.sprite.Sprite):
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
 
 class Button():
     # fixme: this just draws black button, like it needs to be updated
@@ -184,7 +194,7 @@ def draw_board(msg, phase, color, turn, p1men, p2men, moves, kills, winner):
 
     # draw the lines that make up the game board
     for x in range(len(LINES)):
-        pygame.draw.line(DISPSURF, GRAY, 
+        pygame.draw.line(DISPSURF, LINE, 
                     (LINES[x][0] * SQUARESIZE, SQUARESIZE * LINES[x][1]),
                     (LINES[x][2] * SQUARESIZE, LINES[x][3] * SQUARESIZE), 5)
 
@@ -192,7 +202,7 @@ def draw_board(msg, phase, color, turn, p1men, p2men, moves, kills, winner):
     for r in range(ROWS):
         for c in range(COLS):
             radius = RADIUS
-            color2 = GRAY
+            color2 = LINE
             if (int(CB[r][c]) == PLAY1): (color2,radius) = (RED,radius)
             elif (int(CB[r][c]) == PLAY2): (color2,radius) = (BLACK,radius)
             elif (int(VB[r][c] == VALID)): radius = int(RADIUS/2)
@@ -219,8 +229,8 @@ def draw_board(msg, phase, color, turn, p1men, p2men, moves, kills, winner):
 
     # fixme: cache the fonts and blit images?
     # fixme: can't figure out how to make colors a variable tuple
-    GAMEFONT.render_to(DISPSURF, (2.8 * SQUARESIZE, 3 * SQUARESIZE), "P1: " + str(p1men), (RED))
-    GAMEFONT.render_to(DISPSURF, (3.7 * SQUARESIZE, 3 * SQUARESIZE), "P2: " + str(p2men), (BLACK))
+    #GAMEFONT.render_to(DISPSURF, (2.8 * SQUARESIZE, 3 * SQUARESIZE), "P1: " + str(p1men), (RED))
+    #GAMEFONT.render_to(DISPSURF, (3.7 * SQUARESIZE, 3 * SQUARESIZE), "P2: " + str(p2men), (BLACK))
 
     if (winner):
         msg = "{} WON!! Hit ESC key to QUIT".format(PLAYER[int(winner)])
@@ -253,9 +263,15 @@ def main():
     print(INSTRUCTIONS)
 
     # fixme: readup on what globals actually do besides the obvious
-    global FPSCLOCK, DISPSURF, BASICFONT, GAMEFONT, QUIT, KEYUP
+    global FPSCLOCK, DISPSURF, BASICFONT, GAMEFONT, QUIT, KEYUP, BG, LINE, TOKEN, MUSIC
 
-    # pygame setup stuff
+    randtheme = random.randrange(1,8)
+    BG      = THEME[randtheme][0]
+    LINE    = THEME[randtheme][1]
+    TOKEN   = THEME[randtheme][2]
+    MUSIC   = THEME[randtheme][3]
+
+        # pygame setup stuff
     FPSCLOCK = pygame.time.Clock()
     GAMEFONT = pygame.freetype.Font(FONTFILE, 20)
 
@@ -293,6 +309,16 @@ def main():
     oldc = 7
     run = True 
 
+    # define sound object latyer just.play() it
+    click_sound = pygame.mixer.Sound('click.wav')
+
+
+    # load our ambient music
+    pygame.mixer.music.load(MUSIC)
+    pygame.mixer.music.play(-1)
+
+    BackGround = PlaceImage(BG, [0,0])
+
     # fixme: I want a button to popup for quit, replay
     #btnmsg = "{} WON!!".format(PLAYER[int(winner)])
     #btn = Button('Hello', 200, 50, 100, 50)
@@ -301,6 +327,7 @@ def main():
         empty = []      # used for the moves possible placement
         color = BLUE   # default color
         DISPSURF.fill(WHITE)
+        DISPSURF.blit(BackGround.image, BackGround.rect)
 
         # fixme: I want a fps counter if debug
         #if (DEBUG == 3): DISPSURF.blit(update_fps(FPSCLOCK), (10,0))
@@ -409,6 +436,7 @@ def main():
                             counter, turn, plays, kills, p1men, p2men, r, c) + "\tM_UP KILL MOVE VALID + 1"
                     
                     modify_cb(action, phase, None, None, r, c, turn)
+                    click_sound.play()
 
                     # did it just make a kill?  if so run through kill logic next iteration
                     # need to keep branch because it must be a valid move in order to check kills
@@ -481,6 +509,7 @@ def main():
 
                                 # updateboard with move
                                 modify_cb(action, phase, oldr, oldc, nr, nc, turn)
+                                click_sound.play()
 
                                 # check kills
                                 kills = check_kills(turn, r, c, CB)
@@ -504,6 +533,7 @@ def main():
                     if (is_move_valid(phase, r, c, oldr, oldc, moves)):
                         color, action = GREEN, "move"
                         modify_cb(action, phase, oldr, oldc, r, c, turn)
+                        click_sound.play()
 
                         # did it just make a kill?  if so run through kill logic next iteration
                         # need to keep branch because it must be a valid move in order to check kills
