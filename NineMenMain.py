@@ -117,7 +117,7 @@ IndexError: list index out of range
 
 """
 
-VERSION = 8
+VERSION = 9
 
 class PlaceImage(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
