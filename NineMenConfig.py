@@ -139,14 +139,14 @@ KILLS = [
 
 
 THEME = {
-1: ['1.png',BLACK,BLACK,'1.mp3'], 
-2: ['2.png',BLUE,BLUE,'2.mp3'],
-3: ['3.png',BLACK,BLACK,'3.mp3'],
-4: ['4.png',BLACK,BLACK,'4.mp3'],
-5: ['5.png',YELLOW,ORANGE,'5.mp3'],
-6: ['6.png',BLACK,BLACK,'6.mp3'],
-7: ['7.png',BLACK,BLACK,'7.mp3'],
-8: ['8.png',BLACK,BLACK,'8.mp3'],
+1: ['1.png',BLACK,BLACK,'1.ogg'], 
+2: ['2.png',BLUE,BLUE,'2.ogg'],
+3: ['3.png',BLACK,BLACK,'3.ogg'],
+4: ['4.png',BLACK,BLACK,'4.ogg'],
+5: ['5.png',YELLOW,ORANGE,'5.ogg'],
+6: ['6.png',BLACK,BLACK,'6.ogg'],
+7: ['7.png',BLACK,BLACK,'7.ogg'],
+8: ['8.png',BLACK,BLACK,'8.ogg'],
 }
 
 """
