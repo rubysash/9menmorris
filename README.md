@@ -1,6 +1,10 @@
 # 9menmorris
 9 Men Morris game, in Python Pygame
 
+## Demo
+
+![](https://github.com/rubysash/9menmorris/blob/master/example.png?raw=true)
+
 ## Setup (Windows)
 ```
 git clone https://github.com/rubysash/9menmorris.git
