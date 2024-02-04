@@ -3,7 +3,7 @@
 
 # Setup
 git clone https://github.com/rubysash/9menmorris.git <br />
-python -m venv 9mens <br />
+python -m venv 9menmorris <br />
 cd 9menmorris <br />
 scripts\activate <br />
 python -m pip install -r requirements.txt <br />
