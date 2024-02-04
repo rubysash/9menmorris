@@ -1,14 +1,25 @@
 # 9menmorris
 9 Men Morris game, in Python Pygame
 
-# Setup
+## Setup (Windows)
 ```
-git clone https://github.com/rubysash/9menmorris.git <br />
-python -m venv 9menmorris <br />
-cd 9menmorris <br />
-scripts\activate <br />
-python -m pip install -r requirements.txt <br />
-python NineMenMain.py <br />
+git clone https://github.com/rubysash/9menmorris.git
+python -m venv 9menmorris
+cd 9menmorris
+scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python NineMenMain.py
+```
+## Setup (Linux)
+```
+git clone https://github.com/rubysash/9menmorris.git
+python3 -m venv 9menmorris
+cd 9menmorris
+source bin\activate
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+python3 NineMenMain.py
 ```
 
 # Instructions
